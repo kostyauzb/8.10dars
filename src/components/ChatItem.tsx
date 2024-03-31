@@ -1,24 +1,62 @@
 import { Person } from "@mui/icons-material";
 import {
   Avatar,
+  Badge,
   Divider,
   ListItem,
   ListItemAvatar,
   ListItemText,
 } from "@mui/material";
+import styled from "styled-components";
+
+const StyledBadge = styled(Badge)(({ theme }) => ({
+  "& .MuiBadge-badge": {
+    backgroundColor: "#44b700",
+    color: "#44b700",
+    boxShadow: `0 0 0 2px #fff`,
+    "&::after": {
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      borderRadius: "50%",
+      animation: "ripple 1.2s infinite ease-in-out",
+      border: "1px solid currentColor",
+      content: '""',
+    },
+  },
+  "@keyframes ripple": {
+    "0%": {
+      transform: "scale(.8)",
+      opacity: 1,
+    },
+    "100%": {
+      transform: "scale(2.4)",
+      opacity: 0,
+    },
+  },
+}));
 
 const ChatItem = () => {
   return (
     <>
       <ListItem sx={{ cursor: "pointer" }}>
         <ListItemAvatar>
-          <Avatar src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pinterest.jp%2Fpin%2F364087951130741589%2F&psig=AOvVaw2-xmKAjz7WeAJnzzdCV7PM&ust=1711992945760000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCPiak-2En4UDFQAAAAAdAAAAABAJ">
-            <Person />
-          </Avatar>
+          <StyledBadge
+            overlap="circular"
+            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+            variant="dot"
+          >
+            <Avatar src="https://randomuser.me/api/portraits/men/59.jpg">
+              <Person />
+            </Avatar>
+          </StyledBadge>
         </ListItemAvatar>
+
         <ListItemText primary="Photos" secondary="Jan 9, 2014" />
       </ListItem>
-      <Divider></Divider>
+      <Divider />
     </>
   );
 };
