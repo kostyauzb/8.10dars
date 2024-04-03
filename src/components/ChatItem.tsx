@@ -38,10 +38,10 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-const ChatItem = () => {
+const ChatItem = ({ onClick, user }: any) => {
   return (
     <>
-      <ListItem sx={{ cursor: "pointer" }}>
+      <ListItem onClick={onClick} sx={{ cursor: "pointer" }}>
         <ListItemAvatar>
           <StyledBadge
             overlap="circular"
@@ -54,7 +54,7 @@ const ChatItem = () => {
           </StyledBadge>
         </ListItemAvatar>
 
-        <ListItemText primary="Photos" secondary="Jan 9, 2014" />
+        <ListItemText primary={user} />
       </ListItem>
       <Divider />
     </>

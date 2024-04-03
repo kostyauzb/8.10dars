@@ -10,15 +10,36 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { Telegram } from "@mui/icons-material";
+import { signInWithPopup } from "firebase/auth";
+import { auth, googleProvider, realDB } from "../firebase";
+import { useNavigate } from "react-router-dom";
+import { child, get, getDatabase, ref, set } from "firebase/database";
 
 export default function Login() {
+  const navigate = useNavigate();
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
+
+    signInWithPopup(auth, googleProvider).then((info) => {
+      const userName = info.user.email?.slice(0, -10);
+
+      const dbRef = ref(getDatabase());
+      get(child(dbRef, `users/${userName}`)).then((snap) => {
+        if (snap.exists()) {
+          console.log("bor");
+        } else {
+          set(ref(realDB, `users/${userName}`), {
+            userName,
+          });
+        }
+      });
+      navigate("/");
     });
+    // const data = new FormData(event.currentTarget);
+    // console.log({
+    //   email: data.get("email"),
+    //   password: data.get("password"),
+    // });
   };
 
   return (
@@ -91,7 +112,7 @@ export default function Login() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Sign In Google
             </Button>
             <Grid container>
               <Grid item xs>

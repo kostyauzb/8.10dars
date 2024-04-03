@@ -1,17 +1,17 @@
 import { Paper, Stack } from "@mui/material";
 
-const Message = ({ sender }: { sender?: string }) => {
+const Message = ({ right, text }: { right?: boolean; text: string }) => {
   return (
-    <Stack direction={sender === "me" ? "row-reverse" : "row"}>
+    <Stack direction={right ? "row-reverse" : "row"}>
       <Paper
         sx={{
           py: 1,
           px: 3,
-          bgcolor: sender ? "primary.main" : "",
-          color: sender ? "#fff" : "",
+          bgcolor: right ? "primary.main" : "",
+          color: right ? "#fff" : "",
         }}
       >
-        Hello alex
+        {text}
       </Paper>
     </Stack>
   );
